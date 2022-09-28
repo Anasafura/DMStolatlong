@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Degrees,minutes,seconds to decimal degrees conversion</title>
+</head>
+<body>
+   
+        <h1>Degrees,minutes,seconds to decimal degrees conversion</h1>
+        <p>Degrees (°), minutes ('), seconds ('') to decimal degrees angle converter and how to convert.</p>
+        <p>Enter angle in degrees,minutes,seconds and press the <em>Convert</em> button:</p>
+        <form name="calcform" autocomplete="off">
+        <table class="calc2">
+        <tbody><tr>
+        <td><label for="x1">Degrees:</label></td>
+        <td class="math"><input type="number" step="any" id="x1" name="x1" class="intext" autofocus="" tabindex="1"> </td>
+        <td class="math">°</td>
+        </tr>
+        <tr>
+        <td><label for="x2">Minutes:</label></td>
+        <td class="math"><input type="number" step="any" id="x2" name="x2" class="intext" tabindex="2"></td>
+        <td class="math">'</td>
+        </tr>
+        <tr>
+        <td><label for="x3">Seconds:</label></td>
+        <td class="math"><input type="number" step="any" id="x3" name="x3" class="intext" tabindex="3"></td>
+        <td class="math">"</td>
+        </tr>
+        <tr>
+        <td>&nbsp;</td>
+        <td colspan="2">
+        <button type="button" title="Convert" class="btn" tabindex="4" onclick="convert()"><img src="/lib/icons/glyphicons_all/glyphicons_halflings/glyphicons_halflings_030_refresh.png" alt=""> Convert</button>
+        <button type="reset" title="Reset" class="btn" tabindex="5"><img src="/lib/icons/glyphicons_all/glyphicons_halflings/glyphicons_halflings_013_remove.png" alt=""> Reset</button>
+        <button type="button" title="Swap conversion" class="btn" tabindex="6" onclick="location.href='./index1.html';"><img src="/lib/icons/glyphicons_all/glyphicons_halflings/glyphicons_halflings_114_retweet.png" alt=""> Swap</button>
+        </td>
+        </tr>
+        <tr>
+        <td>Decimal degrees:</td>
+        <td><textarea name="y" rows="4" class="outtext" readonly="" cols="20" tabindex="7" style="width:100%"></textarea></td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>Angle view:</td>
+        <td><canvas id="angle"></canvas></td>
+        <td>&nbsp;</td>
+        </tr>
+        </tbody></table>
+        </form>
+     
+        <script src="js/convert.js"></script>
+        <script src="js/mathview.js"></script>
+        <script>
+                function convert(x)
+                {
+                    d = document.calcform.x1.value;
+                    m = document.calcform.x2.value;
+                    s = document.calcform.x3.value;
+                    if( d=='') d='0';
+                    if( m=='') m='0';
+                    if( s=='') s='0';
+                    if( m<0 ) m=-m;
+                    if( s<0 ) s=-s;
+                    m0=m; s0=s;
+                    if( d<0 || d=='-0' ) {m=-m; s=-s;}
+                    y = parseFloat(d)+parseFloat(m)/60+parseFloat(s)/3600;
+                    y = roundnum(y,6);
+                     var txt=d+"\u00B0 "+m0+"' "+s0+"\"";
+                     txt+="\n= "+d+"\u00B0 + "+m+"'/60 + "+s+"\"/3600";
+                     txt+="\n= "+y+"\u00B0";
+                     document.calcform.y.value = txt;
+                    var obj = document.getElementById("angle");
+                    Angle(obj,{
+                        degrees: y,
+                        radius: 60,
+                        fillColor: "rgb(255,255,180)",
+                        lineWidth: 2,
+                        width: 250
+                    });
+                }
+            </script>
+        
+        
+        <div id="div-gpt-ad-1631993686440-0" style="display: none;">
+        </div>
+        
+        
+       
+</body>
+</html>

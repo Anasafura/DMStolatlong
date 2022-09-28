@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decimal Degrees to Degrees,Minutes,Seconds conversion</title>
+</head>
+
+<body>
+
+    <body>
+
+
+        <h1>Decimal Degrees to Degrees,Minutes,Seconds conversion</h1>
+        <p>Decimal degrees to degrees (°), minutes ('), seconds ('') angle converter and how to convert.</p>
+        <p>Enter angle in degrees and press the <em>Convert</em> button (e.g:30.56°, -60.2°):</p>
+        <form name="calcform" autocomplete="off">
+            <table class="calc2">
+                <tbody>
+                    <tr>
+                        <td><label for="x">Decimal degrees:</label></td>
+                        <td class="math"><input type="number" step="any" id="x" name="x" class="intext" autofocus=""
+                                tabindex="1"> </td>
+                        <td class="math">°</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td colspan="2">
+                            <button type="button" title="Convert" class="btn" tabindex="2" onclick="convert()"><img
+                                    
+                                    alt=""> Convert</button>
+                            <button type="reset" title="Reset" class="btn" tabindex="3"><img
+                                  
+                                    alt=""> Reset</button>
+                            <button type="button" title="Swap conversion" class="btn" tabindex="4"
+                                onclick="location.href='index2.html';"><img
+                                    
+                                    alt=""> Swap</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Degrees,minutes,seconds:</td>
+                        <td colspan="2"><input type="text" name="y" class="outtext" readonly="" style="width:100%"
+                                tabindex="5"></td>
+                    </tr>
+                    <tr>
+                        <td>Calculation:</td>
+                        <td colspan="2"><textarea name="y2" rows="7" class="outtext" readonly="" style="width:100%"
+                                tabindex="6"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Angle view:</td>
+                        <td><canvas id="angle"></canvas></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+
+        <script>
+            function convert(x) {
+                var dd = document.calcform.x.value;
+                var x = dd;
+                sign = "";
+                if (dd < 0) { sign = "-"; dd = -dd; }
+                var d = Math.floor(dd);
+                var m = Math.floor((dd - d) * 60);
+                var s = (dd - d - m / 60) * 3600;
+                //s = roundnum(s,6);
+                s = Math.round(s * 100) / 100;
+                if (s == 60) { s = 0; m++; }
+                if (m == 60) { m = 0; d++; }
+                var txt = "d = int(" + dd + "\u00B0) = " + d + "\u00B0";
+                txt += "\nm = int((" + dd + "\u00B0 - " + d + "\u00B0) \u00D7 60) = " + m + "'";
+                txt += "\ns = (" + dd + "\u00B0 - " + d + "\u00B0 - " + m + "'/60) \u00D7 3600 = " + s + "\"";
+                txt += "\n" + sign + dd + "\u00B0";
+                txt += "\n= " + sign + d + "\u00B0 " + m + "' " + s + "\"";
+                document.calcform.y.value = sign + d + "\u00B0 " + m + "' " + s + "\"";
+                document.calcform.y2.value = txt;
+                var obj = document.getElementById("angle");
+                Angle(obj, {
+                    degrees: x,
+                    radius: 60,
+                    fillColor: "rgb(255,255,180)",
+                    lineWidth: 2,
+                    width: 250
+                });
+            }
+        </script>
+
+
+
+
+
+        <script src="Js/convert.js"></script>
+        <script src="Js/mathview.js"></script>
+
+</html>
